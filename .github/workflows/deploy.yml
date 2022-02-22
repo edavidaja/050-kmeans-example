@@ -1,0 +1,19 @@
+name: deploy app
+
+on:
+  push:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: deploy
+        uses: rstudio/actions/connect-publish@main
+        with:
+          url: https://${{ secrets.CONNECT_API_KEY }}@colorado.rstudio.com/rsc
+          require-vanity-path: true
+          access-type: logged_in
+          dir: .:/davids-kmeans-2
